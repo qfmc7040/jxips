@@ -2,7 +2,7 @@
 
 **测试地运营商**: 中国陕西移动  
 **更新频率**: 14:00 ~ 02:00, 08:00（整点更新）  
-**本次更新**: 2026-10-17 18:10:50
+**本次更新**: 2026-10-17 18:14:38
 
 ## 订阅链接
 **Cloudflare R2 订阅连接（推荐）**：
@@ -21,15 +21,15 @@ https://ips.gaoji.uk/full_ips.txt
 
   - 高速优选：
 ```bash
-https://raw.githubusercontent.com/qfmc7040/jxips/refs/heads/main/best_ips.txt
+https://raw.githubusercontent.com/svip-s/cloudflare_ip/refs/heads/main/best_ips.txt
 ```
   - 所有可用：
 ```bash
-https://raw.githubusercontent.com/qfmc7040/jxips/refs/heads/main/full_ips.txt
+https://raw.githubusercontent.com/svip-s/cloudflare_ip/refs/heads/main/full_ips.txt
 ```
   - 优选域名：
 ```bash
-https://raw.githubusercontent.com/qfmc7040/jxips/refs/heads/main/domain.txt
+https://raw.githubusercontent.com/svip-s/cloudflare_ip/refs/heads/main/domain.txt
 ```
 
 #
@@ -45,11 +45,11 @@ https://raw.githubusercontent.com/qfmc7040/jxips/refs/heads/main/domain.txt
 
   - 高速优选
 
-    - 通过脚本筛选出来下载测速最快 IP（速度因地区而异），想省事或者不知道该选哪个，可以尝试选这个。还会把上一轮的优选节点重新复筛一遍，能继续用的优先保留。
+    - 通过脚本筛选出来下载测速最快 IP（速度因地区而异），想省事或者不知道该选哪个，可以尝试选这个。
 
   - 所有可用
 
-    - 本轮全部达标节点：已通过 CDN 边缘预检（确认是真实 Cloudflare 边缘）、代理转发测试（确实能为你的域名转发流量）以及速度达标阈值。按延迟排序，不含任何未达标或测速失败的 IP，适合想自己再挑选的人。
+    - 通过脚本筛选出来每个地区延迟最低的前十个 IP（延迟因地区而异），未经测速，只测了延迟，适合自己进行测速。
 
   - 优选域名
 
@@ -96,13 +96,13 @@ pip install tqdm
 四、克隆仓库：
 
 ```bash
-git clone https://github.com/qfmc7040/jxips.git
+git clone https://github.com/svip-s/cloudflare_ip.git
 ```
 
 五、进入目录：
 
 ```bash
-cd jxips
+cd cloudflare_ip
 ```
 
 六、赋予脚本执行权限：
@@ -123,13 +123,13 @@ termux-setup-storage
   - 本地模式（手动参数）：
 
 ```bash
-bash ~/jxips/auto.sh local
+bash ~/cloudflare_ip/auto.sh local
 ```
 
   - 上传模式（手动参数）：
 
 ```bash
-bash ~/jxips/auto.sh cloud
+bash ~/cloudflare_ip/auto.sh cloud
 ```
 
   - 直接启动
@@ -137,13 +137,13 @@ bash ~/jxips/auto.sh cloud
 > 直接启动会根据你文件配置进行启动。
 
 ```bash
-bash ~/jxips/auto.sh
+bash ~/cloudflare_ip/auto.sh
 ```
 
   - 编辑配置文件：
 
 ```bash
-nano ~/jxips/.env
+nano ~/cloudflare_ip/.env
 ```
 
   - 后台终端配置管理面板
@@ -151,7 +151,7 @@ nano ~/jxips/.env
 > 由于配置文件可能会让有些人感觉比较混乱，再加上编辑不方便，移动端也不好操作，有时候会改错配置导致出现问题，所以写了一个终端控制面板，用来进行配置，这样在修改或使用配置时能够更加清楚，也不容易出错。
 
 ```bash
-bash ~/jxips/config.sh
+bash ~/cloudflare_ip/config.sh
 ```
 
 ```bash
@@ -165,13 +165,13 @@ bash ~/jxips/config.sh
   - 查看高速优选：
 
 ```bash
-cat ~/jxips/best_ips.txt
+cat ~/cloudflare_ip/best_ips.txt
 ```
 
   - 查看所有可用：
 
 ```bash
-cat ~/jxips/full_ips.txt
+cat ~/cloudflare_ip/full_ips.txt
 ```
 
 #
@@ -211,7 +211,7 @@ pip install tqdm boto3
 三、编辑配置文件
 
 ```bash
-nano ~/jxips/.env
+nano ~/cloudflare_ip/.env
 ```
 
 ```bash
@@ -237,7 +237,7 @@ BUCKET_NAME="存储桶名称"
 二、编辑配置文件
 
 ```bash
-nano ~/jxips/.env
+nano ~/cloudflare_ip/.env
 ```
 
 ```bash
@@ -313,7 +313,7 @@ crontab -e
 添加下面内容（如果出现选择编辑器，建议选择 nano，除非你会使用其它编辑器，例如：vi）：
 
 ```bash
-30 4 * * * TERM=xterm stdbuf -oL -eL script -q -c "bash /data/data/com.termux/files/home/jxips/auto.sh" /dev/null | col -b >> /data/data/com.termux/files/home/jxips/cron_log.log 2>&1
+30 4 * * * TERM=xterm stdbuf -oL -eL script -q -c "bash /data/data/com.termux/files/home/cloudflare_ip/auto.sh" /dev/null | col -b >> /data/data/com.termux/files/home/cloudflare_ip/cron_log.log 2>&1
 ```
 
 30 4 * * *： 表示每天凌晨 4：30 自动跑测速并上传。cron_log.log 为日志文件，万一哪次没成功，可以进行查看原因。日志文件会随着时间推移而变大，虽然占不了多少内存，强迫症可以隔段时间手动清理一下，rm -f 删掉即可，不在乎无视就行。
@@ -341,7 +341,7 @@ crontab -e
   - 查看日志
 
 ```bash
-cat ~/jxips/cron_log.log
+cat ~/cloudflare_ip/cron_log.log
 ```
 
   - 查看当前生效的任务
@@ -390,7 +390,7 @@ run: crond: (pid XXX) Xs; run: log: (pid XXX) Xs
 3. 然后写入配置，收件箱和发件箱可以填一样的，但是邮箱必须支持自己给自己发邮件，如果不支持，就得准备两个邮件，授权码必须是发件人的。
 
 ```bash
-nano ~/jxips/.env
+nano ~/cloudflare_ip/.env
 ```
 
 ```bash
@@ -428,7 +428,7 @@ MAIL_TO="收件箱"
 3. 编辑配置文件
 
 ```bash
-nano ~/jxips/.env
+nano ~/cloudflare_ip/.env
 ```
 
 ```bash
@@ -461,7 +461,7 @@ Worker 代码：
 5. 然后把绑定的域名填入配置文件。
 
 ```bash
-nano ~/jxips/.env
+nano ~/cloudflare_ip/.env
 ```
 
 ```bash
@@ -528,7 +528,7 @@ nano ~/.shortcuts/打开配置控制台.sh
 ```bash
 #!/bin/bash
 termux-wake-lock
-bash ~/jxips/config.sh
+bash ~/cloudflare_ip/config.sh
 ```
 
 6. 给脚本执行权限：
@@ -546,7 +546,7 @@ chmod +x ~/.shortcuts/打开配置控制台.sh
 ```bash
 #!/bin/bash
 termux-wake-lock
-bash ~/jxips/auto.sh local
+bash ~/cloudflare_ip/auto.sh local
 ```
 
   - 云端上传：
@@ -554,7 +554,7 @@ bash ~/jxips/auto.sh local
 ```bash
 #!/bin/bash
 termux-wake-lock
-bash ~/jxips/auto.sh cloud
+bash ~/cloudflare_ip/auto.sh cloud
 ```
 
 ```bash
